@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brunch da Pampa - Cardápio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">🌿 Brunch da Pampa 🌿</h1>
+            <nav class="nav">
+                <button class="nav-toggle" id="navToggle">☰</button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#brunch" class="nav-link">Brunch</a></li>
+                    <li><a href="#sands-toasts" class="nav-link">Sands & Toasts</a></li>
+                    <li><a href="#plates" class="nav-link">Plates</a></li>
+                    <li><a href="#sweet" class="nav-link">Sweet Tooth</a></li>
+                    <li><a href="#drinks" class="nav-link">Bebidas</a></li>
+                    <li><a href="#cocktails" class="nav-link">Cocktails</a></li>
+                    <li><a href="#wines" class="nav-link">Vinhos</a></li>
+                    <li><a href="#sharing" class="nav-link">Para Partilhar</a></li>
+                </ul>
+                <button class="cart-button" id="cartButton">
+                    🛒 <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2 class="hero-title">Bem-vindo ao Brunch da Pampa</h2>
+            <p class="hero-subtitle">Sabores autênticos e ingredientes naturais</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+
+            <!-- Brunch: Salads & Soups -->
+            <section id="brunch" class="menu-section">
+                <h2 class="section-title">🥗 Salads & Soups</h2>
+                <div class="menu-grid">
+                    <div class="menu-item" data-item-name="Gardenia" data-item-price="12">
+                        <div class="item-header">
+                            <h3 class="item-name">Gardenia <span class="veg-icon">🌱🥚</span></h3>
+                            <span class="item-price">12€</span>
+                        </div>
+                        <p class="item-description">Mixed greens, avocado, cucumber, asparagus, roasted pistachios & vinaigrette</p>
+                        <p class="item-extras">Extras: Goat cheese toast & honey +2€</p>
+                        <button class="add-to-cart">Adicionar ao Pedido</button>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Kalamaki Salad</h3>
+                            <span class="item-price">14€</span>
+                        </div>
+                        <p class="item-description">Heirloom tomatoes, red onions, black olives, watermelon, mint & mixed greens served with grilled halloumi and red wine vinaigrette</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Caesar Salad</h3>
+                            <span class="item-price">14€</span>
+                        </div>
+                        <p class="item-description">Romaine lettuce, roasted chicken, parmesan, bread croutons & house caesar dressing</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Gaspacho do Dia <span class="veg-icon">🌱</span></h3>
+                            <span class="item-price">8€</span>
+                        </div>
+                        <p class="item-description">• Tomato & strawberry topped with strawberry pickles, roasted almonds & basil oil 🥜</p>
+                        <p class="item-description">• Melon & cucumber topped with melon pickles, yogurt & mint</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sands & Toasts -->
+            <section id="sands-toasts" class="menu-section">
+                <h2 class="section-title">🥪 Sands & Toasts</h2>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">John Salmon</h3>
+                            <span class="item-price">13€</span>
+                        </div>
+                        <p class="item-description">Sourdough toast, cream cheese, avocado, smoked salmon & red onions pickles</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">The British</h3>
+                            <span class="item-price">12€</span>
+                        </div>
+                        <p class="item-description">Ciabatta, caramelized red onions, rockets, roast beef & chives mayo</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Guacamole Toast</h3>
+                            <span class="item-price">10€</span>
+                        </div>
+                        <p class="item-description">Brioche toast, guacamole, poached eggs, rockets & hollandaise sauce</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Brunch Plates -->
+            <section id="plates" class="menu-section">
+                <h2 class="section-title">🍳 Brunch Plates</h2>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Same Same</h3>
+                            <span class="item-price">12€</span>
+                        </div>
+                        <p class="item-description">Sourdough toast w/ scrambled eggs, avocado, beetroot hummus & cherry tomatoes</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Turskish Eggs</h3>
+                            <span class="item-price">12€</span>
+                        </div>
+                        <p class="item-description">Surdough toast, labneh, garlic, lemon, poached eggs, chilli crispy & red onions pickles</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sweet Tooth -->
+            <section id="sweet" class="menu-section">
+                <h2 class="section-title">🍰 Sweet Tooth</h2>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Yogini <span class="veg-icon">🥜</span></h3>
+                            <span class="item-price">7€</span>
+                        </div>
+                        <p class="item-description">Greek yogurt, homemade granola, seasonal fruit jam & fresh fruits</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Suzetinha</h3>
+                            <span class="item-price">9€</span>
+                        </div>
+                        <p class="item-description">Brioche french toast, orange caramel, vanilla ice cream & orange supremes</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Homemade Pastelaria</h3>
+                            <span class="item-price">7€</span>
+                        </div>
+                        <p class="item-description">Variety of tarts - Ask staff for selection of the day!</p>
+                        <p class="item-extras">Banana bread: 5€ • White: 5€</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Drinks -->
+            <section id="drinks" class="menu-section">
+                <h2 class="section-title">☕ Bebidas</h2>
+
+                <div class="drinks-container">
+                    <div class="drinks-column">
+                        <h3 class="subsection-title">Coffees</h3>
+                        <div class="drink-item">
+                            <span class="drink-name">Espresso</span>
+                            <span class="drink-price">2€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Duplo</span>
+                            <span class="drink-price">2,5€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Americano</span>
+                            <span class="drink-price">3,5€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Cappuccino</span>
+                            <span class="drink-price">4,5€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Latte / Iced Latte</span>
+                            <span class="drink-price">4,5€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Flat White</span>
+                            <span class="drink-price">4,5€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Macchiato</span>
+                            <span class="drink-price">3€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Extra Milk</span>
+                            <span class="drink-price">+0,5€</span>
+                        </div>
+                    </div>
+
+                    <div class="drinks-column">
+                        <h3 class="subsection-title">Other Hot Drinks</h3>
+                        <div class="drink-item">
+                            <span class="drink-name">Tee time</span>
+                            <span class="drink-price">4,5€</span>
+                        </div>
+                        <p class="drink-desc">Companhia portuqueza do chá</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Matcha Latte</span>
+                            <span class="drink-price">5€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Chai Latte</span>
+                            <span class="drink-price">5€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Golden Latte</span>
+                            <span class="drink-price">6€</span>
+                        </div>
+                    </div>
+
+                    <div class="drinks-column">
+                        <h3 class="subsection-title">Smoothies & Shakes</h3>
+                        <div class="drink-item">
+                            <span class="drink-name">Redlight</span>
+                            <span class="drink-price">6€</span>
+                        </div>
+                        <p class="drink-desc">Banana, strawberry & mint</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Cracker</span>
+                            <span class="drink-price">7€</span>
+                        </div>
+                        <p class="drink-desc">Banana, oat milk & peanut butter</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Gold brew</span>
+                            <span class="drink-price">7€</span>
+                        </div>
+                        <p class="drink-desc">Pineapple, mango & orange</p>
+                    </div>
+
+                    <div class="drinks-column">
+                        <h3 class="subsection-title">Juices and Sodas</h3>
+                        <div class="drink-item">
+                            <span class="drink-name">Fresh orange juice</span>
+                            <span class="drink-price">4€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Extra ginger +1€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Kombucha - Bouche</span>
+                            <span class="drink-price">5€</span>
+                        </div>
+                        <p class="drink-desc">Hybiskus7 / Cheeerry / Bergamot</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Sault Kombucha</span>
+                            <span class="drink-price">6€</span>
+                        </div>
+                        <p class="drink-desc">Orange blossom & Stone Pine</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Lemonaid</span>
+                            <span class="drink-price">5€</span>
+                        </div>
+                        <p class="drink-desc">Passionfruit / Lime</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Charitea</span>
+                            <span class="drink-price">5€</span>
+                        </div>
+                        <p class="drink-desc">Rooibos / Maté</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Homemade Lemonade</span>
+                            <span class="drink-price">4€</span>
+                        </div>
+                        <p class="drink-desc">Sparkling or still, with or without sugar</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Homemade Iced Tea</span>
+                            <span class="drink-price">4€</span>
+                        </div>
+                    </div>
+
+                    <div class="drinks-column">
+                        <h3 class="subsection-title">MOM Longevity Drinks</h3>
+                        <p class="drink-desc-special">Functional mushroom elixirs, developed with ancient eastern expertise, craft to support well being.</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Melon MeLover - 250ml</span>
+                            <span class="drink-price">6€</span>
+                        </div>
+                        <p class="drink-desc">Watermelon, tangerine, mint & more</p>
+                        <div class="drink-item">
+                            <span class="drink-name">OKale - 250ml</span>
+                            <span class="drink-price">6,5€</span>
+                        </div>
+                        <p class="drink-desc">Kale, grape, apple, passion fruit & more</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Turn Me On - 250ml</span>
+                            <span class="drink-price">6,5€</span>
+                        </div>
+                        <p class="drink-desc">Carrot, orange, lemon, ginger & more</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Root Flower - 250ml</span>
+                            <span class="drink-price">8€</span>
+                        </div>
+                        <p class="drink-desc">Coco water, beetroot, pomegranate & more</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Cacao WOW - 125ml</span>
+                            <span class="drink-price">5,5€</span>
+                        </div>
+                        <p class="drink-desc">Cacao, nuts, orange, piripiri & more</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cocktails -->
+            <section id="cocktails" class="menu-section">
+                <h2 class="section-title">🍹 Cocktails, Soft & Beers</h2>
+
+                <div class="cocktails-container">
+                    <div class="cocktails-column">
+                        <h3 class="subsection-title">Signature Cocktails</h3>
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-name">Primado</h4>
+                                <span class="item-price">10€</span>
+                            </div>
+                            <p class="item-description">Mezcal / Lemon / Elderflower</p>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-name">Above the Clouds</h4>
+                                <span class="item-price">14€</span>
+                            </div>
+                            <p class="item-description">Whisky / Bourbon / Port Wine / Lemon</p>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-name">Kus Kus Velho</h4>
+                                <span class="item-price">10€</span>
+                            </div>
+                            <p class="item-description">Rum / Elderflower / Mint / Prosecco</p>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-name">Blue Sky Spritz</h4>
+                                <span class="item-price">12€</span>
+                            </div>
+                            <p class="item-description">White vermouth / Prosecco / Curaçao</p>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-name">Plata o Plomo</h4>
+                                <span class="item-price">12€</span>
+                            </div>
+                            <p class="item-description">Tequila / Pineapple / Mint / Coco</p>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-header">
+                                <h4 class="item-name">Sao Bento Amaro Club</h4>
+                                <span class="item-price">14€</span>
+                            </div>
+                            <p class="item-description">Dark rum / Amaro / Lemon / Agave</p>
+                        </div>
+                    </div>
+
+                    <div class="cocktails-column">
+                        <h3 class="subsection-title">Classic Cocktails</h3>
+                        <div class="drink-item">
+                            <span class="drink-name">Daiquiri Strawberry</span>
+                            <span class="drink-price">10€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Sours</span>
+                            <span class="drink-price">11€</span>
+                        </div>
+                        <p class="drink-desc">Rum / Gin / Whisky / Amarguinha</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Mezcal / Pisco sour</span>
+                            <span class="drink-price">13€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Caipirinha / Caipiroska</span>
+                            <span class="drink-price">9€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Aperol Spritz</span>
+                            <span class="drink-price">9€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Moscow / Mexican mule</span>
+                            <span class="drink-price">10€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Negroni</span>
+                            <span class="drink-price">10€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Mezgroni</span>
+                            <span class="drink-price">14€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Margarita</span>
+                            <span class="drink-price">10€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Espresso Martini</span>
+                            <span class="drink-price">10€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Dark'n'Stormy</span>
+                            <span class="drink-price">9€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Gin Tonic</span>
+                            <span class="drink-price">9€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Amarguinha limao</span>
+                            <span class="drink-price">6€</span>
+                        </div>
+                    </div>
+
+                    <div class="cocktails-column">
+                        <h3 class="subsection-title">Softs</h3>
+                        <div class="drink-item">
+                            <span class="drink-name">Agua filtrada / Com gas</span>
+                            <span class="drink-price">2,5€/3€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Lemonaid / Charitea</span>
+                            <span class="drink-price">5€</span>
+                        </div>
+                        <p class="drink-desc">Passionfruit or Lime / Rooibos or Maté</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Bouche Kombucha</span>
+                            <span class="drink-price">5€</span>
+                        </div>
+                        <p class="drink-desc">Hybiskus7 / Cheeerry / Bergamot</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Sault Kombucha</span>
+                            <span class="drink-price">6€</span>
+                        </div>
+                        <p class="drink-desc">Orange blossom & Stone Pine</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Mocktail of the day</span>
+                            <span class="drink-price">8€</span>
+                        </div>
+                        <p class="drink-desc">Inspired by the bartender's mood</p>
+                        <div class="drink-item">
+                            <span class="drink-name">MOM - Longevity Drinks</span>
+                            <span class="drink-price">6,5-8€</span>
+                        </div>
+                        <p class="drink-desc">Functional mushroom elixirs of wellness<br>Ask staff for weekly selection</p>
+                    </div>
+
+                    <div class="cocktails-column">
+                        <h3 class="subsection-title">Cervejas & Sidras</h3>
+                        <div class="drink-item">
+                            <span class="drink-name">AMO Artisanal Craft Beer</span>
+                            <span class="drink-price">6€</span>
+                        </div>
+                        <p class="drink-desc">EPA - IPA - White</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Super Bock 33cl</span>
+                            <span class="drink-price">3,5€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Silver Coast - Craft Cider</span>
+                            <span class="drink-price">6€</span>
+                        </div>
+                        <p class="drink-desc">Dry / Pear & Ginger</p>
+                        <div class="drink-item">
+                            <span class="drink-name">Beer 0% - BRLO</span>
+                            <span class="drink-price">6€</span>
+                        </div>
+
+                        <h3 class="subsection-title">Espirituosas</h3>
+                        <div class="drink-item">
+                            <span class="drink-name">Porto / Moscatel</span>
+                            <span class="drink-price">6€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Medronho</span>
+                            <span class="drink-price">12€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Mezcal</span>
+                            <span class="drink-price">14€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Hennessy</span>
+                            <span class="drink-price">14€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Nikka Whisky</span>
+                            <span class="drink-price">14€</span>
+                        </div>
+                        <div class="drink-item">
+                            <span class="drink-name">Diplomatico Rum</span>
+                            <span class="drink-price">14€</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Natural Wines -->
+            <section id="wines" class="menu-section">
+                <h2 class="section-title">🍷 Vinhos Naturais</h2>
+
+                <div class="wines-container">
+                    <div class="wines-column">
+                        <h3 class="subsection-title">Tintos</h3>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Clos Lojen</h4>
+                                <span class="wine-price">6,5€/34€</span>
+                            </div>
+                            <p class="wine-region">Bobal, Manchuela, ES</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Menina d'Uva</h4>
+                                <span class="wine-price">7€/38€</span>
+                            </div>
+                            <p class="wine-region">Tinta 22, Lisboa, PT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Cliff 23</h4>
+                                <span class="wine-price">8€/42€</span>
+                            </div>
+                            <p class="wine-region">Cortes de Cima 22, Alentejo, PT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">GSA</h4>
+                                <span class="wine-price">8€/42€</span>
+                            </div>
+                            <p class="wine-region">Costa do Urso 22, Douro, PT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">COZs POP</h4>
+                                <span class="wine-price">8€/42€</span>
+                            </div>
+                            <p class="wine-region">Tiago Teles 22, Lisboa, PT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Raisins Gaulois</h4>
+                                <span class="wine-price">8,5€/44€</span>
+                            </div>
+                            <p class="wine-region">Lapierre 20, Beaujolais, FR</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Morgado</h4>
+                                <span class="wine-price">8,5€/44€</span>
+                            </div>
+                            <p class="wine-region">Clarete Negra Mole 22, Algarve, PT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Nerocapitano</h4>
+                                <span class="wine-price">48€</span>
+                            </div>
+                            <p class="wine-region">Lamoresca Frappato, Sicilia, IT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Matassa</h4>
+                                <span class="wine-price">64€</span>
+                            </div>
+                            <p class="wine-region">Rouge 23, Roussillon, FR</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Ikewen</h4>
+                                <span class="wine-price">68€</span>
+                            </div>
+                            <p class="wine-region">Bien de Altura 22, Gran Canaria, ESP</p>
+                        </div>
+                    </div>
+
+                    <div class="wines-column">
+                        <h3 class="subsection-title">Brancos</h3>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Aphros Ten</h4>
+                                <span class="wine-price">6,5€/34€</span>
+                            </div>
+                            <p class="wine-region">Aphros 23, Vinho Verde, PT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Cortinha Alvarinho</h4>
+                                <span class="wine-price">7€/38€</span>
+                            </div>
+                            <p class="wine-region">Reserva 22, Vinho Verde, PT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Lulu</h4>
+                                <span class="wine-price">7€/38€</span>
+                            </div>
+                            <p class="wine-region">L'alouette 23, Touraine, FR</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Heinrich</h4>
+                                <span class="wine-price">7,5€/40€</span>
+                            </div>
+                            <p class="wine-region">Weingut Heinrich 23, Burgenland, AUT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Ramilo</h4>
+                                <span class="wine-price">8€/42€</span>
+                            </div>
+                            <p class="wine-region">Nativas 22, Colares, PT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Hapbee</h4>
+                                <span class="wine-price">8,5€/44€</span>
+                            </div>
+                            <p class="wine-region">Riesling 22, Pfalz, GER</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Alveirao</h4>
+                                <span class="wine-price">8,5€/44€</span>
+                            </div>
+                            <p class="wine-region">Chicharo 22, Tejo, PT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Chaminé</h4>
+                                <span class="wine-price">48€</span>
+                            </div>
+                            <p class="wine-region">Cortes de Cima 22, Colares, PT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Paulo de Tebas</h4>
+                                <span class="wine-price">52€</span>
+                            </div>
+                            <p class="wine-region">Mateus Nicolau de Almeida 20, Douro, PT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Matassa</h4>
+                                <span class="wine-price">64€</span>
+                            </div>
+                            <p class="wine-region">Blanc 23, Roussillon, FR</p>
+                        </div>
+                    </div>
+
+                    <div class="wines-column">
+                        <h3 class="subsection-title">Laranjas & Palhete</h3>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Saroto Orange</h4>
+                                <span class="wine-price">6,5€/34€</span>
+                            </div>
+                            <p class="wine-region">Rosé 22, Lisboa, PT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Crazy Branco</h4>
+                                <span class="wine-price">8€/42€</span>
+                            </div>
+                            <p class="wine-region">Quinta do Javali 20, Douro, PT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Humus</h4>
+                                <span class="wine-price">8€/42€</span>
+                            </div>
+                            <p class="wine-region">Outra Curtimenta 21, Lisboa, PT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Wabi-Sabi</h4>
+                                <span class="wine-price">46€</span>
+                            </div>
+                            <p class="wine-region">Grüner Veltliner 23, Scheurebe, AUT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Saroto Palhete</h4>
+                                <span class="wine-price">6,5€/34€</span>
+                            </div>
+                            <p class="wine-region">Arribas 24, Douro, PT</p>
+                        </div>
+                    </div>
+
+                    <div class="wines-column">
+                        <h3 class="subsection-title">Espumantes & Rosé</h3>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Humus Pet Nat Rosé</h4>
+                                <span class="wine-price">8€/42€</span>
+                            </div>
+                            <p class="wine-region">Outra Curtimenta 24, Lisbon, PT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Flui Pet Nat</h4>
+                                <span class="wine-price">8€/42€</span>
+                            </div>
+                            <p class="wine-region">Encosta da Quinta 23, Lisboa, PT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Quarticello</h4>
+                                <span class="wine-price">46€</span>
+                            </div>
+                            <p class="wine-region">Malvasia Emilia 23, Emilia-Romagna, IT</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Bulapapa</h4>
+                                <span class="wine-price">49€</span>
+                            </div>
+                            <p class="wine-region">Montlouis-sur-Loire 22, Val de Loire, FR</p>
+                        </div>
+                        <div class="wine-item">
+                            <div class="wine-header">
+                                <h4 class="wine-name">Nunes Mata</h4>
+                                <span class="wine-price">6,5€/34€</span>
+                            </div>
+                            <p class="wine-region">Rosé 22, Lisboa, PT</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sharing Plates -->
+            <section id="sharing" class="menu-section">
+                <h2 class="section-title">🍽️ Para Partilhar // To Share</h2>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Couvert</h3>
+                            <span class="item-price">7€</span>
+                        </div>
+                        <p class="item-description">Sourdough bread, butter & beetroot hummus</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Olives</h3>
+                            <span class="item-price">4€</span>
+                        </div>
+                        <p class="item-description">Marinated sicilian olives</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Oysters</h3>
+                            <span class="item-price">3€/16€/30€</span>
+                        </div>
+                        <p class="item-description">Nº1 / Nº3 / Nº12 - Red cabbage mignonette and lemon</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Escabeche Toast</h3>
+                            <span class="item-price">8€</span>
+                        </div>
+                        <p class="item-description">Brioche toast, pickles, escabeche & mussels<br>
+                        <em>Vegan: sourdough, garlic purée, escabeche & marinated bell pepper</em></p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Tuna Nenuphar</h3>
+                            <span class="item-price">8€</span>
+                        </div>
+                        <p class="item-description">Nasturtium leaves, tuna tartar, avocado cream & peanuts furikake</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Artisanal Burrata</h3>
+                            <span class="item-price">14€</span>
+                        </div>
+                        <p class="item-description">Mixed leaves and herbs salad, plum, peach and blueberry, truffled honey & buckwheat</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Feijoada <span class="veg-icon">🌱</span></h3>
+                            <span class="item-price">14€</span>
+                        </div>
+                        <p class="item-description">White beans, veggie demi-glace, roasted shiitake, butternut & celery</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Summer Salad <span class="veg-icon">🌱</span></h3>
+                            <span class="item-price">14€</span>
+                        </div>
+                        <p class="item-description">Tomatoes mix, melon, watermelon, radish, shallot, avocado purée & tomato water sauce</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Ceviche</h3>
+                            <span class="item-price">22€</span>
+                        </div>
+                        <p class="item-description">Corvinha, "leche de tigre", sweet potato purée, coriander, red onions & chilli pepper</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Tuna Tataki <span class="veg-icon">🥜</span></h3>
+                            <span class="item-price">22€</span>
+                        </div>
+                        <p class="item-description">Braised tuna, ponzu sauce, chilli crispy, orange supremes & spring onions</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Bacalhau à Brás <span class="veg-icon">🥜</span></h3>
+                            <span class="item-price">22€</span>
+                        </div>
+                        <p class="item-description">Codfish confit, onions, olives, crispy potatoes & egg custard</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Beef Carpaccio</h3>
+                            <span class="item-price">19€</span>
+                        </div>
+                        <p class="item-description">Roasted garlic paste, chimichurri, parmesan, shallots, cappers rockets & sorrel</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Chicken Piri-Piri</h3>
+                            <span class="item-price">17€</span>
+                        </div>
+                        <p class="item-description">Roasted chicken leg, piri-piri marinade, herbs velouté, roasted potatoes & kale</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Glazed Pork Belly <span class="veg-icon">🥜</span></h3>
+                            <span class="item-price">17€</span>
+                        </div>
+                        <p class="item-description">Asian glaze, carrot purée, herbs and red cabbage salad & peanuts furikake</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Homemade Tarts</h3>
+                            <span class="item-price">7€</span>
+                        </div>
+                        <p class="item-description">Lemon meringue, chocolate hazelnut, pistachio raspberry & more, ask staff!</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Pain Perdu <span class="veg-icon">🥜</span></h3>
+                            <span class="item-price">8€</span>
+                        </div>
+                        <p class="item-description">Brioche, orange caramel, orange supremes, almond crumble & vanilla ice cream</p>
+                    </div>
+                </div>
+
+                <p class="allergen-notice"><span class="veg-icon">🥜</span> Contains nuts. If you are allergic to any other products, please ask the staff.</p>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>🛒 Seu Pedido</h2>
+                <button class="close-cart" id="closeCart">✕</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <p class="empty-cart">Seu carrinho está vazio</p>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span class="total-price" id="totalPrice">0€</span>
+                </div>
+                <button class="checkout-button" id="checkoutButton">Enviar Pedido para Cozinha</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="checkout-content">
+            <div class="checkout-header">
+                <h2>📝 Finalizar Pedido</h2>
+                <button class="close-checkout" id="closeCheckout">✕</button>
+            </div>
+            <form class="checkout-form" id="checkoutForm">
+                <div class="form-group">
+                    <label for="customerName">Nome:</label>
+                    <input type="text" id="customerName" required placeholder="Seu nome">
+                </div>
+                <div class="form-group">
+                    <label for="tableNumber">Número da Mesa:</label>
+                    <input type="text" id="tableNumber" required placeholder="Ex: Mesa 5">
+                </div>
+                <div class="form-group">
+                    <label for="orderNotes">Observações (opcional):</label>
+                    <textarea id="orderNotes" rows="3" placeholder="Alergias, preferências, etc."></textarea>
+                </div>
+                <button type="submit" class="submit-order">🍳 Confirmar e Enviar para Cozinha</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">&copy; 2025 Brunch da Pampa. Todos os direitos reservados.</p>
+            <p class="footer-allergen">🥜 Contém frutos secos. Se tiver alguma alergia, por favor fale com a nossa equipa.</p>
+        </div>
+    </footer>
+
+    <script src="script-advanced.js"></script>
+</body>
+</html>

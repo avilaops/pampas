@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brunch da Pampa - Cozinha</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .kitchen-header {
+            background: linear-gradient(135deg, #2d5016, #8b7355);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .kitchen-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .kitchen-header .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem 2rem;
+            border-radius: 5px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d4a574;
+        }
+
+        .orders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .order-card {
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 5px solid #d4a574;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .order-card.completed {
+            opacity: 0.5;
+            border-left-color: #4caf50;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #3a3a3a;
+        }
+
+        .order-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #d4a574;
+        }
+
+        .order-time {
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .table-info {
+            background: #3a3a3a;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .customer-name {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .estimated-time, .completed-time {
+            background: linear-gradient(135deg, #d4a574, #8b7355);
+            padding: 0.6rem 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        .completed-time {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+        }
+
+        .order-total {
+            background: #3a3a3a;
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            text-align: right;
+            color: #d4a574;
+            font-size: 1.1rem;
+        }
+
+        .order-items {
+            margin: 1rem 0;
+        }
+
+        .order-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #3a3a3a;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .item-quantity {
+            background: #d4a574;
+            color: #1a1a1a;
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .order-notes {
+            background: #3a3a3a;
+            padding: 0.8rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            font-style: italic;
+            color: #ffd700;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-complete {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .btn-complete:hover {
+            background-color: #45a049;
+        }
+
+        .btn-cancel {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background-color: #da190b;
+        }
+
+        .no-orders {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: slideInRight 0.3s ease;
+            z-index: 1000;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .sound-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #d4a574;
+            color: #1a1a1a;
+            padding: 1rem;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="kitchen-header">
+        <h1>🍳 Painel da Cozinha</h1>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="pendingCount">0</div>
+                <div>Pedidos Pendentes</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="completedCount">0</div>
+                <div>Pedidos Completos</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="orders-grid" id="ordersGrid">
+        <div class="no-orders">
+            <p>👨‍🍳 Aguardando novos pedidos...</p>
+        </div>
+    </div>
+
+    <button class="sound-toggle" id="soundToggle" title="Ativar/Desativar Som">🔔</button>
+
+    <script>
+        class KitchenManager {
+            constructor() {
+                this.orders = [];
+                this.orderCounter = 1;
+                this.soundEnabled = true;
+                this.channel = null;
+                this.init();
+            }
+
+            init() {
+                this.loadOrders();
+                this.setupBroadcastChannel();
+                this.setupPolling();
+                this.setupSoundToggle();
+                this.setupAutoRefresh();
+            }
+
+            setupBroadcastChannel() {
+                if ('BroadcastChannel' in window) {
+                    this.channel = new BroadcastChannel('kitchen-sync');
+                    this.channel.onmessage = (event) => {
+                        if (event.data.type === 'new-order') {
+                            this.addOrder(event.data.order);
+                            this.playNotification();
+                            this.showNotification('🔔 Novo pedido recebido!');
+                        }
+                    };
+                }
+            }
+
+            setupPolling() {
+                setInterval(() => {
+                    const newOrderData = localStorage.getItem('newOrder');
+                    if (newOrderData) {
+                        const order = JSON.parse(newOrderData);
+                        if (!this.orders.find(o => o.id === order.id)) {
+                            this.addOrder(order);
+                            this.playNotification();
+                            this.showNotification('🔔 Novo pedido!');
+                        }
+                        localStorage.removeItem('newOrder');
+                    }
+                }, 1000);
+            }
+
+            setupAutoRefresh() {
+                setInterval(() => this.renderOrders(), 5000);
+            }
+
+            setupSoundToggle() {
+                document.getElementById('soundToggle')?.addEventListener('click', (e) => {
+                    this.soundEnabled = !this.soundEnabled;
+                    e.target.textContent = this.soundEnabled ? '🔔' : '🔕';
+                    e.target.style.opacity = this.soundEnabled ? '1' : '0.5';
+                });
+            }
+
+            loadOrders() {
+                const saved = localStorage.getItem('kitchenOrders');
+                if (saved) {
+                    this.orders = JSON.parse(saved);
+                    this.orderCounter = this.orders.length > 0 ? Math.max(...this.orders.map(o => o.id)) + 1 : 1;
+                }
+                this.renderOrders();
+            }
+
+            saveOrders() {
+                localStorage.setItem('kitchenOrders', JSON.stringify(this.orders));
+            }
+
+            addOrder(data) {
+                const order = {
+                    ...data,
+                    kitchenId: this.orderCounter++,
+                    status: 'pending',
+                    receivedAt: new Date().toLocaleTimeString('pt-PT'),
+                    estimatedTime: this.calculateEstimatedTime()
+                };
+                this.orders.unshift(order);
+                this.saveOrders();
+                this.renderOrders();
+            }
+
+            calculateEstimatedTime() {
+                const pending = this.orders.filter(o => o.status === 'pending').length;
+                return 15 + (pending * 5);
+            }
+
+            completeOrder(id) {
+                const order = this.orders.find(o => o.kitchenId === id);
+                if (order) {
+                    order.status = 'completed';
+                    order.completedAt = new Date().toLocaleTimeString('pt-PT');
+                    this.saveOrders();
+                    this.renderOrders();
+                    this.showNotification('✅ Pedido concluído!');
+                }
+            }
+
+            cancelOrder(id) {
+                this.orders = this.orders.filter(o => o.kitchenId !== id);
+                this.saveOrders();
+                this.renderOrders();
+                this.showNotification('🗑️ Pedido removido');
+            }
+
+            renderOrders() {
+                const grid = document.getElementById('ordersGrid');
+                const pending = this.orders.filter(o => o.status === 'pending');
+                const completed = this.orders.filter(o => o.status === 'completed');
+
+                document.getElementById('pendingCount').textContent = pending.length;
+                document.getElementById('completedCount').textContent = completed.length;
+
+                if (!this.orders.length) {
+                    grid.innerHTML = '<div class="no-orders"><p>👨‍🍳 Aguardando pedidos...</p></div>';
+                    return;
+                }
+
+                grid.innerHTML = this.orders.map(o => `
+                    <div class="order-card ${o.status}">
+                        <div class="order-header">
+                            <div class="order-number">Pedido #${o.kitchenId}</div>
+                            <div class="order-time">${o.receivedAt}</div>
+                        </div>
+                        <div class="table-info">
+                            <span class="customer-name">👤 ${o.customerName}</span>
+                            <span>🪑 ${o.tableNumber}</span>
+                        </div>
+                        ${o.status === 'pending' ? `
+                            <div class="estimated-time">
+                                ⏱️ Estimativa: ${o.estimatedTime} min
+                            </div>
+                        ` : `
+                            <div class="completed-time">
+                                ✓ Concluído: ${o.completedAt}
+                            </div>
+                        `}
+                        <div class="order-items">
+                            ${o.items.map(item => `
+                                <div class="order-item">
+                                    <div>
+                                        <span class="item-quantity">${item.quantity}x</span>
+                                        ${item.name}
+                                    </div>
+                                    <div>${item.price.toFixed(2)}€</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="order-total">
+                            <strong>Total: ${o.total.toFixed(2)}€</strong>
+                        </div>
+                        ${o.notes ? `<div class="order-notes">📝 ${o.notes}</div>` : ''}
+                        <div class="order-actions">
+                            ${o.status === 'pending' ? `
+                                <button class="btn btn-complete" onclick="kitchen.completeOrder(${o.kitchenId})">
+                                    ✓ Marcar Pronto
+                                </button>
+                            ` : ''}
+                            <button class="btn btn-cancel" onclick="kitchen.cancelOrder(${o.kitchenId})">
+                                🗑️ Remover
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            playNotification() {
+                if (!this.soundEnabled) return;
+                try {
+                    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                    const playBeep = (freq, time, duration) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.frequency.value = freq;
+                        gain.gain.value = 0.15;
+                        osc.start(time);
+                        osc.stop(time + duration);
+                    };
+
+                    playBeep(523, ctx.currentTime, 0.1);
+                    playBeep(659, ctx.currentTime + 0.15, 0.1);
+                    playBeep(784, ctx.currentTime + 0.30, 0.2);
+                } catch (e) {}
+            }
+
+            showNotification(msg) {
+                const n = document.createElement('div');
+                n.className = 'notification';
+                n.textContent = msg;
+                document.body.appendChild(n);
+                setTimeout(() => n.remove(), 3000);
+            }
+        }
+
+        const kitchen = new KitchenManager();
+        window.kitchen = kitchen;
+    </script>
+</body>
+</html>
