@@ -92,19 +92,25 @@ class CartManager {
         items.forEach(item => {
             const name = item.querySelector('.item-name');
             const price = item.querySelector('.item-price');
+            const section = item.closest('.menu-section');
 
             if (name && price) {
                 const itemName = name.textContent.trim();
                 const match = price.textContent.match(/(\d+(?:,\d+)?)/);
                 const itemPrice = match ? parseFloat(match[1].replace(',', '.')) : 0;
 
+                // Determinar categoria (cozinha ou bar)
+                const sectionId = section?.id || '';
+                const category = this.categorizeItem(sectionId, itemName);
+
                 item.dataset.itemName = itemName;
                 item.dataset.itemPrice = itemPrice;
+                item.dataset.category = category;
 
                 if (!item.querySelector('.add-to-cart')) {
                     const btn = document.createElement('button');
                     btn.className = 'add-to-cart';
-                    btn.innerHTML = '🛒';
+                    btn.innerHTML = category === 'bar' ? '🍸' : '🛒';
                     btn.title = 'Adicionar';
                     btn.onclick = (e) => {
                         e.stopPropagation();
@@ -117,7 +123,29 @@ class CartManager {
         });
     }
 
-    animateBtn(btn) {
+    categorizeItem(sectionId, itemName) {
+        // Seções que vão para o BAR
+        const barSections = ['drinks', 'cocktails', 'wines'];
+
+        // Seções que vão para a COZINHA
+        const kitchenSections = ['brunch', 'sands-toasts', 'plates', 'sweet', 'sharing'];
+
+        if (barSections.includes(sectionId)) {
+            return 'bar';
+        } else if (kitchenSections.includes(sectionId)) {
+            return 'kitchen';
+        }
+
+        // Fallback: analisar nome do item
+        const barKeywords = ['cocktail', 'vinho', 'wine', 'cerveja', 'beer', 'drink', 'juice', 'coffee', 'tea', 'kombucha'];
+        const lowerName = itemName.toLowerCase();
+
+        if (barKeywords.some(keyword => lowerName.includes(keyword))) {
+            return 'bar';
+        }
+
+        return 'kitchen';
+    }    animateBtn(btn) {
         btn.style.transform = 'scale(0.7)';
         setTimeout(() => {
             btn.style.transform = 'scale(1.3)';
@@ -155,22 +183,21 @@ class CartManager {
     addItem(item) {
         const name = item.dataset.itemName;
         const price = parseFloat(item.dataset.itemPrice);
+        const category = item.dataset.category || 'kitchen';
         const existing = this.cart.find(i => i.name === name);
 
         if (existing) {
             existing.quantity++;
             this.notify(`${name} (x${existing.quantity})`);
         } else {
-            this.cart.push({ name, price, quantity: 1, time: Date.now() });
+            this.cart.push({ name, price, quantity: 1, time: Date.now(), category });
             this.notify(`✓ ${name}`);
         }
 
         this.saveToStorage();
         this.updateUI();
         this.beep();
-    }
-
-    removeItem(index) {
+    }    removeItem(index) {
         const item = this.cart[index];
         this.cart.splice(index, 1);
         this.saveToStorage();
@@ -297,31 +324,74 @@ class CartManager {
             return;
         }
 
-        const order = {
-            id: Date.now(),
+        // Separar itens por destino
+        const kitchenItems = this.cart.filter(item => item.category === 'kitchen');
+        const barItems = this.cart.filter(item => item.category === 'bar');
+
+        const totalAmount = this.cart.reduce((s, i) => s + (i.price * i.quantity), 0);
+        const orderId = Date.now();
+
+        const baseOrder = {
+            id: orderId,
             customerName: name,
             tableNumber: table,
             notes: notes,
-            items: [...this.cart],
-            total: this.cart.reduce((s, i) => s + (i.price * i.quantity), 0),
+            total: totalAmount,
             timestamp: new Date().toISOString(),
             status: 'pending'
         };
 
         try {
-            localStorage.setItem('newOrder', JSON.stringify(order));
+            // Enviar para COZINHA se houver itens
+            if (kitchenItems.length > 0) {
+                const kitchenOrder = {
+                    ...baseOrder,
+                    items: kitchenItems,
+                    destination: 'kitchen',
+                    itemsTotal: kitchenItems.reduce((s, i) => s + (i.price * i.quantity), 0)
+                };
+                localStorage.setItem('newKitchenOrder', JSON.stringify(kitchenOrder));
 
-            if (this.channel) {
-                this.channel.postMessage({ type: 'new-order', order });
+                if (this.channel) {
+                    this.channel.postMessage({ type: 'new-kitchen-order', order: kitchenOrder });
+                }
             }
 
-            this.orderHistory.push(order);
+            // Enviar para BAR se houver itens
+            if (barItems.length > 0) {
+                const barOrder = {
+                    ...baseOrder,
+                    items: barItems,
+                    destination: 'bar',
+                    itemsTotal: barItems.reduce((s, i) => s + (i.price * i.quantity), 0)
+                };
+                localStorage.setItem('newBarOrder', JSON.stringify(barOrder));
+
+                if (this.channel) {
+                    this.channel.postMessage({ type: 'new-bar-order', order: barOrder });
+                }
+            }
+
+            // Salvar pedido completo no histórico
+            const fullOrder = {
+                ...baseOrder,
+                items: this.cart,
+                kitchenItems: kitchenItems.length,
+                barItems: barItems.length
+            };
+
+            this.orderHistory.push(fullOrder);
             this.saveToStorage();
             this.notify('🎉 Pedido enviado!');
             this.beep(3);
 
             setTimeout(() => {
-                alert(`✅ PEDIDO #${order.id}\n\nMesa: ${table}\nTotal: ${order.total.toFixed(2)}€\n\nEnviado para cozinha!`);
+                let message = `✅ PEDIDO #${orderId}\n\nMesa: ${table}\nTotal: ${totalAmount.toFixed(2)}€\n\n`;
+                if (kitchenItems.length > 0) message += `🍳 Cozinha: ${kitchenItems.length} item(s)\n`;
+                if (barItems.length > 0) message += `🍸 Bar: ${barItems.length} item(s)\n`;
+                message += '\nPedido enviado!';
+
+                alert(message);
                 this.cart = [];
                 this.saveToStorage();
                 this.updateUI();
@@ -333,9 +403,7 @@ class CartManager {
             console.error('Order error:', e);
             this.notify('❌ Erro ao enviar');
         }
-    }
-
-    notify(msg) {
+    }    notify(msg) {
         const n = document.createElement('div');
         n.className = 'cart-notification';
         n.textContent = msg;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brunch da Pampa - Cozinha</title>
+    <title>Brunch da Pampa - Bar</title>
     <style>
         * {
             margin: 0;
@@ -18,20 +18,20 @@
             padding: 20px;
         }
 
-        .kitchen-header {
-            background: linear-gradient(135deg, #2d5016, #8b7355);
+        .bar-header {
+            background: linear-gradient(135deg, #8b7355, #d4a574);
             padding: 2rem;
             border-radius: 10px;
             margin-bottom: 2rem;
             text-align: center;
         }
 
-        .kitchen-header h1 {
+        .bar-header h1 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
         }
 
-        .kitchen-header .stats {
+        .bar-header .stats {
             display: flex;
             justify-content: center;
             gap: 2rem;
@@ -47,7 +47,7 @@
         .stat-number {
             font-size: 2rem;
             font-weight: bold;
-            color: #d4a574;
+            color: #2d5016;
         }
 
         .orders-grid {
@@ -246,11 +246,22 @@
             font-size: 1.5rem;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
+
+        .destination-badge {
+            background: linear-gradient(135deg, #8b7355, #d4a574);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body>
-    <div class="kitchen-header">
-        <h1>🍳 Painel da Cozinha</h1>
+    <div class="bar-header">
+        <h1>🍸 Painel do Bar</h1>
         <div class="stats">
             <div class="stat-item">
                 <div class="stat-number" id="pendingCount">0</div>
@@ -265,14 +276,14 @@
 
     <div class="orders-grid" id="ordersGrid">
         <div class="no-orders">
-            <p>👨‍🍳 Aguardando novos pedidos...</p>
+            <p>🍹 Aguardando novos pedidos...</p>
         </div>
     </div>
 
     <button class="sound-toggle" id="soundToggle" title="Ativar/Desativar Som">🔔</button>
 
     <script>
-        class KitchenManager {
+        class BarManager {
             constructor() {
                 this.orders = [];
                 this.orderCounter = 1;
@@ -293,10 +304,10 @@
                 if ('BroadcastChannel' in window) {
                     this.channel = new BroadcastChannel('kitchen-sync');
                     this.channel.onmessage = (event) => {
-                        if (event.data.type === 'new-kitchen-order') {
+                        if (event.data.type === 'new-bar-order') {
                             this.addOrder(event.data.order);
                             this.playNotification();
-                            this.showNotification('🔔 Novo pedido para a cozinha!');
+                            this.showNotification('🔔 Novo pedido para o bar!');
                         }
                     };
                 }
@@ -304,7 +315,7 @@
 
             setupPolling() {
                 setInterval(() => {
-                    const newOrderData = localStorage.getItem('newKitchenOrder');
+                    const newOrderData = localStorage.getItem('newBarOrder');
                     if (newOrderData) {
                         const order = JSON.parse(newOrderData);
                         if (!this.orders.find(o => o.id === order.id)) {
@@ -312,7 +323,7 @@
                             this.playNotification();
                             this.showNotification('🔔 Novo pedido!');
                         }
-                        localStorage.removeItem('newKitchenOrder');
+                        localStorage.removeItem('newBarOrder');
                     }
                 }, 1000);
             }
@@ -330,22 +341,22 @@
             }
 
             loadOrders() {
-                const saved = localStorage.getItem('kitchenOrders');
+                const saved = localStorage.getItem('barOrders');
                 if (saved) {
                     this.orders = JSON.parse(saved);
-                    this.orderCounter = this.orders.length > 0 ? Math.max(...this.orders.map(o => o.id)) + 1 : 1;
+                    this.orderCounter = this.orders.length > 0 ? Math.max(...this.orders.map(o => o.barId || o.id)) + 1 : 1;
                 }
                 this.renderOrders();
             }
 
             saveOrders() {
-                localStorage.setItem('kitchenOrders', JSON.stringify(this.orders));
+                localStorage.setItem('barOrders', JSON.stringify(this.orders));
             }
 
             addOrder(data) {
                 const order = {
                     ...data,
-                    kitchenId: this.orderCounter++,
+                    barId: this.orderCounter++,
                     status: 'pending',
                     receivedAt: new Date().toLocaleTimeString('pt-PT'),
                     estimatedTime: this.calculateEstimatedTime()
@@ -357,22 +368,22 @@
 
             calculateEstimatedTime() {
                 const pending = this.orders.filter(o => o.status === 'pending').length;
-                return 15 + (pending * 5);
+                return 5 + (pending * 2);
             }
 
             completeOrder(id) {
-                const order = this.orders.find(o => o.kitchenId === id);
+                const order = this.orders.find(o => o.barId === id);
                 if (order) {
                     order.status = 'completed';
                     order.completedAt = new Date().toLocaleTimeString('pt-PT');
                     this.saveOrders();
                     this.renderOrders();
-                    this.showNotification('✅ Pedido concluído!');
+                    this.showNotification('✅ Pedido pronto!');
                 }
             }
 
             cancelOrder(id) {
-                this.orders = this.orders.filter(o => o.kitchenId !== id);
+                this.orders = this.orders.filter(o => o.barId !== id);
                 this.saveOrders();
                 this.renderOrders();
                 this.showNotification('🗑️ Pedido removido');
@@ -387,16 +398,17 @@
                 document.getElementById('completedCount').textContent = completed.length;
 
                 if (!this.orders.length) {
-                    grid.innerHTML = '<div class="no-orders"><p>👨‍🍳 Aguardando pedidos...</p></div>';
+                    grid.innerHTML = '<div class="no-orders"><p>🍹 Aguardando pedidos...</p></div>';
                     return;
                 }
 
                 grid.innerHTML = this.orders.map(o => `
                     <div class="order-card ${o.status}">
                         <div class="order-header">
-                            <div class="order-number">Pedido #${o.kitchenId}</div>
+                            <div class="order-number">Pedido #${o.barId}</div>
                             <div class="order-time">${o.receivedAt}</div>
                         </div>
+                        <span class="destination-badge">🍸 BAR</span>
                         <div class="table-info">
                             <span class="customer-name">👤 ${o.customerName}</span>
                             <span>🪑 ${o.tableNumber}</span>
@@ -407,7 +419,7 @@
                             </div>
                         ` : `
                             <div class="completed-time">
-                                ✓ Concluído: ${o.completedAt}
+                                ✓ Pronto: ${o.completedAt}
                             </div>
                         `}
                         <div class="order-items">
@@ -422,16 +434,17 @@
                             `).join('')}
                         </div>
                         <div class="order-total">
-                            <strong>Total: ${o.total.toFixed(2)}€</strong>
+                            <strong>Subtotal Bar: ${o.itemsTotal.toFixed(2)}€</strong>
+                            ${o.total !== o.itemsTotal ? `<br><small>Total Geral: ${o.total.toFixed(2)}€</small>` : ''}
                         </div>
                         ${o.notes ? `<div class="order-notes">📝 ${o.notes}</div>` : ''}
                         <div class="order-actions">
                             ${o.status === 'pending' ? `
-                                <button class="btn btn-complete" onclick="kitchen.completeOrder(${o.kitchenId})">
+                                <button class="btn btn-complete" onclick="bar.completeOrder(${o.barId})">
                                     ✓ Marcar Pronto
                                 </button>
                             ` : ''}
-                            <button class="btn btn-cancel" onclick="kitchen.cancelOrder(${o.kitchenId})">
+                            <button class="btn btn-cancel" onclick="bar.cancelOrder(${o.barId})">
                                 🗑️ Remover
                             </button>
                         </div>
@@ -454,9 +467,9 @@
                         osc.stop(time + duration);
                     };
 
-                    playBeep(523, ctx.currentTime, 0.1);
-                    playBeep(659, ctx.currentTime + 0.15, 0.1);
-                    playBeep(784, ctx.currentTime + 0.30, 0.2);
+                    playBeep(659, ctx.currentTime, 0.1);
+                    playBeep(784, ctx.currentTime + 0.15, 0.1);
+                    playBeep(880, ctx.currentTime + 0.30, 0.2);
                 } catch (e) {}
             }
 
@@ -469,8 +482,8 @@
             }
         }
 
-        const kitchen = new KitchenManager();
-        window.kitchen = kitchen;
+        const bar = new BarManager();
+        window.bar = bar;
     </script>
 </body>
 </html>
